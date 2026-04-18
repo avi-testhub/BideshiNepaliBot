@@ -2,7 +2,7 @@
 
 This repository documents the development of a Discord bot designed for both specialized operational tasks like market auditing and geographical resolution and standard general-purpose chatting. 
 
-In Nepali, "Bideshi" means "Foreign." The term BideshiNepali refers to the global Nepalese diaspora, those living and working outside of Nepal. The bot is named to reflect this identity: a technical tool for navigating international life (markets, geography, news) while staying connected to Nepali roots.
+In Nepalese, "Bideshi" means "Foreign." The term BideshiNepali refers to the global Nepalese diaspora, those living and working outside of Nepal. The bot is named to reflect this identity: a technical tool for navigating international life (markets, geography, news) while staying connected to Nepali roots.
 
 ## Developer Profile & Methodology
 **Developer:** Avi
