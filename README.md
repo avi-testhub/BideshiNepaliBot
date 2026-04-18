@@ -93,14 +93,20 @@ A persistent technical hurdle identified during the auditing phase is **strict r
 
 ## Development Roadmap & Pipeline
 
-* **Conversation Memory (SQLite3):** **[IN PIPELINE]** An asynchronous SQLite layer is being refactored to allow the bot to summarize past channel history or specific user statements. Previous iterations were deprecated due to retrieval errors.
+* **Conversation Memory (SQLite3):** **[IN PIPELINE]** An asynchronous SQLite layer is being refactored to allow the bot to summarize past channel history or specific user statements. Older versions were scrapped because the memory system was too buggy.
+* **Image generation:** Integrating Gemini-native models to generate vlogging assets (thumbnails/storyboards) directly via chat prompts.
 * **Multimodal Auditing:** Future support for ingesting screenshots of financial reports for automated table extraction and sentiment analysis.
 * **Regional Sentry v2:** Refining the hybrid parser to eliminate "Global Leakage" and ensure source integrity for specific international markets.
 * **Bilingual Capability:** Implementing native support for switching between English and Nepali.
 * **Cultural Nuance:** Tuning the bot to understand Nepalese social hierarchies (respectful address), kinship terms, and idioms.
+* **Full Cloud Integration:** Transitioning the bot host and fallback model (LLaMA 3) from local hardware to a 24/7 cloud environment (VPS/Serverless) for full autonomy.
 
 ## Setup
 1. Define `DISCORD_TOKEN` and `GEMINI_API_KEY` in `.env`.
-2. Install dependencies: `pip install discord.py google-genai requests yfinance feedparser python-dotenv`.
-3. Ensure Ollama is running LLaMA 3 for local fallback support.
+```
+DISCORD_TOKEN=your_discord_bot_token_here
+GEMINI_API_KEY=your_google_gemini_api_key_here
+```
+3. Install dependencies: `pip install discord.py google-genai requests yfinance feedparser python-dotenv`.
+4. Ensure Ollama is running LLaMA 3 for local fallback support.
 
