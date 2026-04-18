@@ -11,7 +11,12 @@ In Nepali, "Bideshi" means "Foreign." The term BideshiNepali refers to the globa
 * **Phase 1:** Initial logic and structure were drafted using the paid version of **ChatGPT**.
 * **Phase 2:** The project transitioned to **Gemini Pro** for more complex refactoring and the implementation of the hybrid architecture.
 * **Process:** The development involved extensive trial and error. Systems were "audited" through continuous manual interaction to identify edge cases and logic failures.
-
+  
+**Local Inference Journey:** Before settling on LLaMA 3, I experimented with several local models to find a reliable fallback:
+* Wizard-Vicuna & DeepSeek-Coder: Tested for raw logic and coding assistance.
+* Gemma 3: Explored for its lightweight footprint.
+* The Result: Most "scrapped" models failed to handle the specific cultural "flare" or the complex coordinate math required, leading to the current Gemini/LLaMA 3 hybrid build.
+  
 ---
 
 ## 🛠️ Prompting & Iteration Metrics
