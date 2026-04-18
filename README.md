@@ -1,4 +1,4 @@
-# BideshiNepaliBot: Hybrid AI Intelligence & Operations Assistant
+# BideshiNepaliBot: Cloud-Local Hybrid AI
 
 This repository documents the development of a Discord bot designed for both specialized operational tasks like market auditing and geographical resolution and standard general-purpose chatting. 
 
