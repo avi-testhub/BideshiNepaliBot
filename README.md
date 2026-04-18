@@ -101,6 +101,13 @@ A persistent technical hurdle identified during the auditing phase is **strict r
 
 *The UAE module is currently inconsistent, frequently defaulting to UK-centric data from the BBC feed despite hard-coded overrides.*
 
+## ✍️ Creative & General AI Capabilities
+
+Beyond specialized operations, the bot functions as a full-featured creative assistant:
+
+- **Conversational Logic:** Capable of holding long-form, context-aware discussions.
+- **Creative Writing:** Generating lyrics, short stories, jokes and poems.
+- **Summarization:** Condensing chat history into bullet points. (Legacy feature removed for refactoring due to memory bugs).
 ---
 
 ## Development Roadmap & Pipeline
