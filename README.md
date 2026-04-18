@@ -2,7 +2,7 @@
 
 This repository documents the development of a Discord bot designed for both specialized operational tasks—like market auditing and geographical resolution—and standard general-purpose chatting. 
 
-_"Bideshi" means "Foreign" in Nepali. So BideshiNepali refers to Nepalese people living outside Nepal_
+In Nepali, "Bideshi" means "Foreign." The term BideshiNepali refers to the global Nepalese diaspora—those living and working outside of Nepal. The bot is named to reflect this identity: a technical tool for navigating international life (markets, geography, news) while staying connected to Nepali roots.
 
 ## Developer Profile & Methodology
 **Developer:** Avi
@@ -95,6 +95,8 @@ A persistent technical hurdle identified during the auditing phase is **strict r
 * **Conversation Memory (SQLite3):** **[IN PIPELINE]** An asynchronous SQLite layer is being refactored to allow the bot to summarize past channel history or specific user statements. Previous iterations were deprecated due to retrieval errors.
 * **Multimodal Auditing:** Future support for ingesting screenshots of financial reports for automated table extraction and sentiment analysis.
 * **Regional Sentry v2:** Refining the hybrid parser to eliminate "Global Leakage" and ensure source integrity for specific international markets.
+* **Bilingual Capability:** Implementing native support for switching between English and Nepali.
+* **Cultural Nuance:** Tuning the bot to understand Nepalese social hierarchies (respectful address), kinship terms, and idioms.
 
 ## Setup
 1. Define `DISCORD_TOKEN` and `GEMINI_API_KEY` in `.env`.
