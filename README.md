@@ -4,12 +4,25 @@ This repository documents the development of a Discord-based AI operations assis
 
 ## Developer Profile & Methodology
 **Developer:** Avi
-
+**Total No. of Prompts
 **Methodology: Vibe Coding** This project was built with a very limited foundational background in Python, which proved insufficient for complex architecture. Consequently, the development process relied almost entirely on **"vibe coding"** - an iterative, prompt-heavy approach to building software through high-level intent rather than manual syntax writing.
 * **Phase 1:** Initial logic and structure were drafted using the paid version of **ChatGPT**.
 * **Phase 2:** The project transitioned to **Gemini Pro** for more complex refactoring and the implementation of the hybrid architecture.
 * **Process:** The development involved extensive trial and error. Systems were "audited" through continuous manual interaction to identify edge cases and logic failures.
 
+---
+
+## 🛠️ Prompting & Iteration Metrics
+
+Because the development followed a **"Vibe Coding"** methodology, the project represents approximately **70–90 high-level prompts** across both ChatGPT and Gemini Pro.
+
+### Process Breakdown:
+**Total Estimated Prompts: ~100**
+1. **System Refinement (~35 prompts):** Repeated requests for "Full Code" to ensure that various disparate modules (Geo-spatial math, Market APIs, and RSS parsers) were integrated without breaking the asynchronous Discord event loop.
+2. **Feature Deep-Dives (~25 prompts):** Specifically tuning the "Regional Sentry" to prevent global news leakage and implementing weekend-proof logic for stock market data.
+3. **Audit-Driven Debugging (~30 prompts):** Identifying and resolving failures in the intent router, such as the bot's stubbornness in defaulting to BBC links for UAE-based news queries.
+4. **Environment & Documentation (~10 prompts):** Handling .env setup, dependency troubleshooting, and README asset mapping.
+   
 ---
 
 ## Technical Architecture: Hybrid AI Orchestration
