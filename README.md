@@ -31,7 +31,7 @@ The bot resolves coordinates via the Nominatim API and calculates the great-circ
 | :--- | :--- | :--- |
 | **Validated Logic** | Python Math + OpenStreetMap | ![Validated OSM Output](1%20-%20Map%20distance%20calculator.jpg) |
 
-*The system provides precise calculations and forces a plotted OpenStreetMap route link for verification.*
+*The system provides precise calculations and forces a plotted OpenStreetMap route link for verification. You can see that initially, the BOT failed to generate the answer - this was due to the constraints in the token limitaions - after adding a failsafe mechanism to use LLAMA3 locally if the token ran out - the prompt was executed.*
 
 ### 📈 Financial Market Auditing
 Integrated with `yfinance` to monitor trading movements. This feature allows for the correlation of media sentiment with actual market volatility.
