@@ -72,7 +72,7 @@ The system processes broad informational queries into constrained, scannable sum
 ![Summarization Example](3%20-%20Information%20request.jpg)
 *Fig: Fact-based summarization of historical data.*
 
-### 🇳🇵 Translation & Linguistic Analysis
+### Translation & Linguistic Analysis
 The bot can translate sentences from various languages into English. It attempts to explain grammatical components like verbs and conjunctions to provide better context for code-switching.
 
 ![Translation Breakdown Example](5%20-%20translation.jpg)
