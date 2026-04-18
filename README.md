@@ -108,7 +108,6 @@ A persistent technical hurdle identified during the auditing phase is **strict r
 * **Bilingual Capability:** Implementing native support for switching between English and Nepali.
 * **Cultural Nuance:** Tuning the bot to understand Nepalese social hierarchies (respectful address), kinship terms, and idioms.
 * **Full Cloud Integration:** Transitioning the bot host and fallback model (LLaMA 3) from local hardware to a 24/7 cloud environment (VPS/Serverless) for full autonomy.
-* 
 
 ## Setup
 1. Define `DISCORD_TOKEN` and `GEMINI_API_KEY` in `.env`.
