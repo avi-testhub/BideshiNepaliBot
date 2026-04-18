@@ -94,7 +94,7 @@ A persistent technical hurdle identified during the auditing phase is **strict r
 ## Development Roadmap & Pipeline
 
 * **Conversation Memory (SQLite3):** **[IN PIPELINE]** An asynchronous SQLite layer is being refactored to allow the bot to summarize past channel history or specific user statements. Older versions were scrapped because the memory system was too buggy.
-* **Image generation:** Integrating Gemini-native models to generate vlogging assets (thumbnails/storyboards) directly via chat prompts.
+* **Image generation:** Supporting direct image creation through chat prompts.
 * **Multimodal Auditing:** Future support for ingesting screenshots of financial reports for automated table extraction and sentiment analysis.
 * **Regional Sentry v2:** Refining the hybrid parser to eliminate "Global Leakage" and ensure source integrity for specific international markets.
 * **Bilingual Capability:** Implementing native support for switching between English and Nepali.
