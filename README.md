@@ -2,6 +2,8 @@
 
 This repository documents the development of a Discord bot designed for both specialized operational tasks—like market auditing and geographical resolution—and standard general-purpose chatting. 
 
+_"Bideshi" means "Foreign" in Nepali. So BideshiNepali refers to Nepalese people living outside Nepal_
+
 ## Developer Profile & Methodology
 **Developer:** Avi
 **Methodology: Vibe Coding** This project was built with a very limited foundational background in Python, which proved insufficient for complex architecture. Consequently, the development process relied almost entirely on **"vibe coding"** - an iterative, prompt-heavy approach to building software through high-level intent rather than manual syntax writing.
