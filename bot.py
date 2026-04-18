@@ -6,6 +6,7 @@ import sqlite3
 import requests
 import feedparser
 import yfinance as yf
+from datetime import datetime
 from math import radians, sin, cos, sqrt, atan2
 from pathlib import Path
 
@@ -18,97 +19,114 @@ from google.genai import types
 # ==========================================
 # 1. SETUP & CONFIGURATION
 # ==========================================
-# Look for .env in the same folder as this script
 env_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
-# Correct way to load keys: Do NOT paste actual keys here!
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-if not DISCORD_TOKEN or not GEMINI_API_KEY:
-    print(f"CRITICAL ERROR: Keys not found at {env_path}")
-    # This prevents the bot from even trying to start if keys are missing
-    exit()
-
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-
-# Initialize Gemini Client
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 # ==========================================
-# 2. MARKET DATA LAYER (Weekend Proof)
+# 2. DATABASE & MEMORY LAYER
 # ==========================================
-def get_market_comparison(ticker, period="5d"):
-    """Fetches market data. 5d period ensures we find Friday prices on weekends."""
+def setup_db():
+    conn = sqlite3.connect("chat_memory.db")
+    c = conn.cursor()
+    c.execute("""CREATE TABLE IF NOT EXISTS messages 
+                 (channel_id TEXT, author_id TEXT, author_name TEXT, content TEXT, timestamp TEXT)""")
+    conn.commit()
+    conn.close()
+
+def save_message(channel_id, author_id, author_name, content):
     try:
-        stock = yf.Ticker(ticker)
-        hist = stock.history(period=period)
-        
-        if hist.empty or len(hist) < 1: 
-            return None
-        
-        # Get the very last available closing price
-        current_p = hist['Close'].iloc[-1]
-        
-        # Get the previous day's price for comparison
-        if len(hist) >= 2:
-            prev_p = hist['Close'].iloc[-2]
-            change = ((current_p - prev_p) / prev_p) * 100
+        conn = sqlite3.connect("chat_memory.db")
+        c = conn.cursor()
+        ts = datetime.now().isoformat()
+        c.execute("INSERT INTO messages VALUES (?, ?, ?, ?, ?)", 
+                  (str(channel_id), str(author_id), author_name, content, ts))
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        logger.error(f"DB Write Error: {e}")
+
+def get_chat_history(channel_id, target_user=None, limit=10):
+    """Retrieves past messages to provide context for summaries."""
+    try:
+        conn = sqlite3.connect("chat_memory.db")
+        c = conn.cursor()
+        if target_user:
+            # Clean mention ID if needed
+            clean_id = re.sub(r'\D', '', target_user)
+            c.execute("SELECT author_name, content FROM messages WHERE channel_id=? AND author_id=? ORDER BY timestamp DESC LIMIT ?", 
+                      (str(channel_id), clean_id, limit))
         else:
-            prev_p = current_p
-            change = 0.0
-
-        return {
-            "ticker": ticker.upper(), 
-            "price": round(current_p, 2), 
-            "change": round(change, 2), 
-            "currency": stock.info.get('currency', 'USD')
-        }
-    except:
-        return None
+            c.execute("SELECT author_name, content FROM messages WHERE channel_id=? ORDER BY timestamp DESC LIMIT ?", 
+                      (str(channel_id), limit))
+        rows = c.fetchall()
+        conn.close()
+        rows.reverse()
+        return "\n".join([f"{name}: {msg}" for name, msg in rows])
+    except: return ""
 
 # ==========================================
-# 3. HYBRID AI LAYER (Intent + Fallback)
+# 3. REGIONAL NEWS SENTRY
 # ==========================================
-async def analyze_query_entities(user_input):
-    """Uses Gemini Flash to extract what the user wants."""
-    prompt = f"""
-    Analyze the user input. Return ONLY a JSON object.
-    Intents: 'distance' (loc1, loc2), 'market' (ticker), 'top_stocks', 'where' (loc), 'chat'.
-    Input: "{user_input}"
-    """
-    try:
-        res = await client.aio.models.generate_content(
-            model='gemini-2.5-flash',
-            contents=prompt,
-            config=types.GenerateContentConfig(response_mime_type="application/json")
-        )
-        return json.loads(res.text)
-    except:
-        t = user_input.lower()
-        if "top" in t and "stock" in t: return {"intent": "top_stocks"}
-        if "distance" in t or "between" in t: return {"intent": "distance"}
-        return {"intent": "chat"}
+REGIONAL_FEEDS = {
+    "UAE": ["https://www.thenationalnews.com/arc/outboundfeeds/rss/", "https://gulfnews.com/rss/news"],
+    "NZ": ["https://www.rnz.co.nz/rss/news.xml", "https://www.nzherald.co.nz/arc/outboundfeeds/rss/section/nz/?outputType=xml"],
+    "AUS": ["https://www.abc.net.au/news/feed/51120/rss.xml", "https://www.sbs.com.au/news/feed"],
+    "Nepal": ["https://kathmandupost.com/rss", "https://english.onlinekhabar.com/feed"],
+    "SEA": ["https://www.channelnewsasia.com/rss/cna-asia", "https://www.bangkokpost.com/rss/data/topstories.xml"],
+    "Global": ["http://feeds.bbci.co.uk/news/rss.xml", "https://www.reutersagency.com/feed/"]
+}
 
+SENTRY_MAP = {
+    "UAE": ["uae", "dubai", "emirates", "gulf"],
+    "NZ": ["nz", "new zealand", "auckland", "wellington"],
+    "AUS": ["aus", "australia", "sydney", "melbourne"],
+    "Nepal": ["nepal", "kathmandu", "pokhara"],
+    "SEA": ["sea", "singapore", "bangkok", "asia"]
+}
+
+def fetch_rss_news(region="Global", topic=None):
+    urls = REGIONAL_FEEDS.get(region, REGIONAL_FEEDS["Global"])
+    articles = []
+    is_generic = not topic or any(x in topic.lower() for x in ["news", "latest", "update"])
+
+    for url in urls:
+        try:
+            feed = feedparser.parse(url)
+            for entry in feed.entries[:3]:
+                if is_generic or (topic.lower() in entry.title.lower()):
+                    articles.append({"title": entry.title, "link": entry.link})
+        except: continue
+    return articles[:5]
+
+# ==========================================
+# 4. HYBRID AI & UTILITIES
+# ==========================================
 async def generate_hybrid_text(prompt):
-    """Cloud-to-Local Fallback (Gemini -> LLaMA 3)."""
     try:
         res = await client.aio.models.generate_content(model='gemini-2.5-flash', contents=prompt)
         return res.text.strip()
     except:
-        logger.warning("Gemini limit reached. Using Local LLaMA 3...")
         try:
             res = requests.post("http://localhost:11434/api/generate", 
                                 json={"model": "llama3", "prompt": prompt, "stream": False}, timeout=15)
             return res.json().get("response", "").strip()
-        except:
-            return "⚠️ I'm currently disconnected from my AI brains. Please check back later."
+        except: return "⚠️ AI system fallback failed."
 
-# ==========================================
-# 4. GEO & UTILITY LAYER
-# ==========================================
+async def analyze_intent(user_input):
+    prompt = f"Analyze: '{user_input}'. Output ONLY JSON: {{\"intent\": \"news/market/distance/chat\", \"topic\": \"str\", \"ticker\": \"str\"}}"
+    try:
+        res = await client.aio.models.generate_content(model='gemini-2.5-flash', contents=prompt, 
+                                                       config=types.GenerateContentConfig(response_mime_type="application/json"))
+        return json.loads(res.text)
+    except: return {"intent": "chat"}
+
 def get_coords(place):
     url = "https://nominatim.openstreetmap.org/search"
     headers = {"User-Agent": "BideshiNepaliBot/3.0"}
@@ -120,6 +138,7 @@ def get_coords(place):
 def calculate_distance(c1, c2):
     R = 6371
     lat1, lon1, lat2, lon2 = radians(c1[0]), radians(c1[1]), radians(c2[0]), radians(c2[1])
+    # Haversine formula
     a = sin((lat2-lat1)/2)**2 + cos(lat1)*cos(lat2)*sin((lon2-lon1)/2)**2
     return R * (2 * atan2(sqrt(a), sqrt(1-a)))
 
@@ -132,61 +151,61 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
-    logger.info(f"✅ Bot is Live: {bot.user}")
+    setup_db()
+    logger.info(f"✅ Bot Online: {bot.user}")
 
 @bot.event
 async def on_message(message):
     if message.author == bot.user: return
+    
+    # LOG EVERY MESSAGE TO MEMORY
+    save_message(message.channel.id, message.author.id, message.author.name, message.content)
 
     if bot.user in message.mentions:
         user_prompt = re.sub(r'<@!?\d+>', '', message.content).strip()
         
         async with message.channel.typing():
-            analysis = await analyze_query_entities(user_prompt)
-            intent = analysis.get("intent")
+            # 1. REGIONAL SENTRY (Hard Override)
+            target_region = "Global"
+            found_region = False
+            for reg, keywords in SENTRY_MAP.items():
+                if any(k in user_prompt.lower() for k in keywords):
+                    target_region, found_region = reg, True
+                    break
 
-            # 1. TOP 5 STOCKS (Weekend Proof)
-            if intent == "top_stocks":
-                tickers = ["NVDA", "AAPL", "MSFT", "GOOGL", "AMZN"]
-                res_list = []
-                for t in tickers:
-                    d = get_market_comparison(t)
-                    if d: res_list.append(f"**{t}**: {d['price']} USD ({d['change']}%)")
-                
-                await message.channel.send("📈 **Top 5 S&P 500 Stocks (Latest Trading Data)**\n" + "\n".join(res_list))
+            # 2. INTENT ANALYSIS
+            analysis = await analyze_intent(user_prompt)
+            intent = "news" if found_region else analysis.get("intent")
+            
+            # 3. MEMORY CHECK
+            is_mem = any(x in user_prompt.lower() for x in ["saying", "said", "summarize", "history"])
 
-            # 2. INDIVIDUAL MARKET LOOKUP
-            elif intent == "market":
-                ticker = analysis.get("ticker", "SPY").upper()
-                d = get_market_comparison(ticker)
-                if d:
-                    await message.channel.send(f"📊 **{d['ticker']} Snapshot**\nPrice: {d['price']} {d['currency']}\n24h Change: {d['change']}%")
+            if is_mem:
+                target_user = re.search(r'<@!?(\d+)>', user_prompt).group(0) if "<@" in user_prompt else None
+                history = get_chat_history(message.channel.id, target_user)
+                reply = await generate_hybrid_text(f"Context:\n{history}\n\nQuery: {user_prompt}")
+                await message.channel.send(reply)
+
+            elif intent == "news":
+                news = fetch_rss_news(target_region, analysis.get("topic"))
+                if news:
+                    bullets = [f"{i}. **{a['title']}**\n   🔗 [Read Story]({a['link']})" for i, a in enumerate(news, 1)]
+                    vibe = await generate_hybrid_text(f"Summarize these {target_region} headlines: " + " | ".join([n['title'] for n in news]))
+                    await message.channel.send(f"📰 **Top {target_region} Headlines**\n*{vibe}*\n\n" + "\n\n".join(bullets))
                 else:
-                    await message.channel.send(f"Could not find data for {ticker}.")
+                    await message.channel.send(f"No {target_region} matches found.")
 
-            # 3. DISTANCE (FORCED MAP FIX)
             elif intent == "distance":
-                loc1, loc2 = analysis.get("loc1"), analysis.get("loc2")
-                # Backup regex if AI parsing locs fails
-                if not loc1 or not loc2:
+                try:
                     parts = re.split(r' to | and | between ', user_prompt.lower())
-                    loc1, loc2 = parts[-2].strip(), parts[-1].strip()
-
-                c1, c2 = get_coords(loc1), get_coords(loc2)
-                if c1 and c2:
-                    dist_km = round(calculate_distance(c1, c2), 2)
-                    ai_text = await generate_hybrid_text(f"Friendly answer: distance between {loc1} and {loc2} is {dist_km}km.")
-                    
-                    # Manual Append: The Map Link is NEVER missing now
+                    c1, c2 = get_coords(parts[-2].strip()), get_coords(parts[-1].strip())
+                    dist = round(calculate_distance(c1, c2), 2)
                     map_url = f"https://www.openstreetmap.org/directions?route={c1[0]},{c1[1]};{c2[0]},{c2[1]}"
-                    await message.channel.send(f"📏 {ai_text}\n🗺️ **View Plotted Route:** {map_url}")
-                else:
-                    await message.channel.send("I couldn't resolve those locations on the map.")
+                    await message.channel.send(f"📏 Distance: {dist}km\n🗺️ **Route:** {map_url}")
+                except: await message.channel.send("Coordinate resolution failed.")
 
-            # 4. DEFAULT CHAT
             else:
                 reply = await generate_hybrid_text(user_prompt)
                 await message.channel.send(reply)
 
-if __name__ == "__main__":
-    bot.run(DISCORD_TOKEN)
+bot.run(DISCORD_TOKEN)
