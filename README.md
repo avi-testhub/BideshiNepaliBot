@@ -100,7 +100,7 @@ A persistent technical hurdle identified during the auditing phase is **strict r
 
 ## Development Roadmap & Pipeline
 
-* **Persona & Identity Logic:** Re-implementing a "System Prompt" with a dedicated operator prompt—positioning the bot as a knowledgeable Nepali peer. This requires refining the intent router so that "Personality" only activates when Gemini is online, preventing LLaMA 3 from attempting logic it cannot handle.
+* **Persona & Identity Logic:** Re-implementing a "System Prompt" with a dedicated operator prompt, positioning the bot as a knowledgeable Nepalese peer. This requires refining the intent router so that "Personality" only activates when Gemini is online, preventing LLaMA 3 from attempting logic it cannot handle.
 * **Conversation Memory (SQLite3):** **[IN PIPELINE]** An asynchronous SQLite layer is being refactored to allow the bot to summarize past channel history or specific user statements. Older versions were scrapped because the memory system was too buggy.
 * **Image generation:** Supporting direct image creation through chat prompts.
 * **Multimodal Auditing:** Future support for ingesting screenshots of financial reports for automated table extraction and sentiment analysis.
