@@ -40,7 +40,7 @@ Integrated with `yfinance` to monitor trading movements. This feature allows for
 ![Business Model Analysis](2%20-%20Market%20research%20contd.jpg)
 *Fig: Comparative stock performance snapshots and business model metrics.*
 
-The bot also handles broad market analysis for regulatory briefings:
+The bot also handles broad market analysis:
 ![Market Trend Summary](2%20-%20Market%20analysis.jpg)
 *Fig: Automated 5-point market trend summary.*
 
