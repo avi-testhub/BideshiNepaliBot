@@ -5,10 +5,10 @@ This repository documents the development of a Discord-based AI operations assis
 ## Developer Profile & Methodology
 **Developer:** Avi
 
-**Methodology: Vibe Coding** This project was built with a very limited foundational background in Python. The development process relied almost entirely on "vibe coding"—an iterative, prompt-heavy approach to building software.
+**Methodology: Vibe Coding** This project was built with a very limited foundational background in Python, which proved insufficient for complex architecture. Consequently, the development process relied almost entirely on **"vibe coding"**—an iterative, prompt-heavy approach to building software through high-level intent rather than manual syntax writing.
 * **Phase 1:** Initial logic and structure were drafted using the paid version of **ChatGPT**.
 * **Phase 2:** The project transitioned to **Gemini Pro** for more complex refactoring and the implementation of the hybrid architecture.
-* **Process:** The development involved extensive trial and error, identifying system failures through continuous manual auditing rather than formal software testing suites.
+* **Process:** The development involved extensive trial and error. Systems were "audited" through continuous manual interaction to identify edge cases and logic failures.
 
 ---
 
@@ -29,8 +29,7 @@ The bot resolves coordinates via the Nominatim API and calculates the great-circ
 
 | Iteration Phase | Logic | Result |
 | :--- | :--- | :--- |
-| **Phase 1: Pure LLM** | Internal knowledge only | ![Pure LLM Output](image_fc32a8.png) |
-| **Phase 2: Validated Logic** | Python Math + OpenStreetMap | ![Validated OSM Output](1%20-%20Map%20distance%20calculator.jpg) |
+| **Validated Logic** | Python Math + OpenStreetMap | ![Validated OSM Output](1%20-%20Map%20distance%20calculator.jpg) |
 
 *The system provides precise calculations and forces a plotted OpenStreetMap route link for verification.*
 
@@ -71,7 +70,7 @@ A persistent technical hurdle identified during the auditing phase is **strict r
 
 ## Development Roadmap & Pipeline
 
-* **Conversation Memory (SQLite3):** Currently in the pipeline. An asynchronous SQLite layer is being refactored to allow the bot to summarize past channel history or specific user statements.
+* **Conversation Memory (SQLite3):** **[IN PIPELINE]** An asynchronous SQLite layer is being refactored to allow the bot to summarize past channel history or specific user statements. Previous iterations were deprecated due to retrieval errors.
 * **Multimodal Auditing:** Future support for ingesting screenshots of financial reports for automated table extraction and sentiment analysis.
 * **Regional Sentry v2:** Refining the hybrid parser to eliminate "Global Leakage" and ensure source integrity for specific international markets.
 
