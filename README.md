@@ -56,31 +56,31 @@ The bot resolves coordinates via the Nominatim API and calculates the great-circ
 
 | Iteration Phase | Logic | Result |
 | :--- | :--- | :--- |
-| **Validated Logic** | Python Math + OpenStreetMap | ![Validated OSM Output](1%20-%20Map%20distance%20calculator.jpg) |
+| **Validated Logic** | Python Math + OpenStreetMap | ![Validated OSM Output](./Images/1%20-%20Map%20distance%20calculator.jpg) |
 
 *The system provides precise calculations and forces a plotted OpenStreetMap route link for verification. You can see that initially, the BOT failed to generate the answer - this was due to the constraints in the token limitaions - after adding a failsafe mechanism to use LLAMA3 locally if the token ran out - the prompt was executed.*
 
 ### 📈 Financial Market Auditing
 Integrated with `yfinance` to monitor trading movements. This feature allows for the correlation of media sentiment with actual market volatility.
 
-![Stock Performance Comparison](2%20-%20Market%20research.jpg)
-![Business Model Analysis](2%20-%20Market%20research%20contd.jpg)
+![Stock Performance Comparison](./Images/2%20-%20Market%20research.jpg)
+![Business Model Analysis](./Images/2%20-%20Market%20research%20contd.jpg)
 *Fig: Comparative stock performance snapshots and business model metrics.*
 
 The bot also handles broad market analysis:
-![Market Trend Summary](2%20-%20Market%20analysis.jpg)
+![Market Trend Summary](./Images/2%20-%20Market%20analysis.jpg)
 *Fig: Automated 5-point market trend summary.*
 
 ### 📄 Automated Briefing
 The system processes broad informational queries into constrained, scannable summaries (e.g., under 200 words).
 
-![Summarization Example](3%20-%20Information%20request.jpg)
+![Summarization Example](./Images/3%20-%20Information%20request.jpg)
 *Fig: Fact-based summarization of historical data.*
 
 ### Translation & Linguistic Analysis
 The bot can translate sentences from various languages into English. It attempts to explain grammatical components like verbs and conjunctions to provide better context for code-switching.
 
-![Translation Breakdown Example](5%20-%20translation.jpg)
+![Translation Breakdown Example](./Images/5%20-%20translation.jpg)
 *Fig: Etymological breakdown of a Nepali sentence.*
 
 _Note: This feature is highly dependent on the cloud model (Gemini). When the system falls back to **LLaMA 3**, translation results are often "not so great", failing to capture the nuances of grammar or cultural context._
@@ -95,9 +95,9 @@ A persistent technical hurdle identified during the auditing phase is **strict r
 
 | Regional Target | Logic Outcome | Evidence |
 | :--- | :--- | :--- |
-| **Australia (AUS)** | Successful Routing | ![Successful AUS Routing](4%20-%20news.jpg) |
-| **UAE** | Intent Mismatch (None) | ![UAE Intent Failure](4%20-%20news2%20error%20UAE.jpg) |
-| **UAE** | Global Leakage (BBC) | ![UAE Global Default](4%20-%20news3%20error%20UAE.jpg) |
+| **Australia (AUS)** | Successful Routing | ![Successful AUS Routing](./Images/4%20-%20news.jpg) |
+| **UAE** | Intent Mismatch (None) | ![UAE Intent Failure](./Images/4%20-%20news2%20error%20UAE.jpg) |
+| **UAE** | Global Leakage (BBC) | ![UAE Global Default](./Images/4%20-%20news3%20error%20UAE.jpg) |
 
 *The UAE module is currently inconsistent, frequently defaulting to UK-centric data from the BBC feed despite hard-coded overrides.*
 
