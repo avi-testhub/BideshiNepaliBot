@@ -1,10 +1,9 @@
-# BideshiNepaliBot: Technical Overview & Development Journey
+# BideshiNepaliBot: Hybrid AI Intelligence & Operations Assistant
 
-This repository documents the development of a Discord-based AI operations assistant. The project transitioned from an experimental bilingual script to a hybrid cloud-local AI agent designed for specialized tasks: market auditing, geographical resolution, and automated information retrieval.
+This repository documents the development of a Discord bot designed for both specialized operational tasks—like market auditing and geographical resolution—and standard general-purpose chatting. 
 
 ## Developer Profile & Methodology
 **Developer:** Avi
-**Total No. of Prompts
 **Methodology: Vibe Coding** This project was built with a very limited foundational background in Python, which proved insufficient for complex architecture. Consequently, the development process relied almost entirely on **"vibe coding"** - an iterative, prompt-heavy approach to building software through high-level intent rather than manual syntax writing.
 * **Phase 1:** Initial logic and structure were drafted using the paid version of **ChatGPT**.
 * **Phase 2:** The project transitioned to **Gemini Pro** for more complex refactoring and the implementation of the hybrid architecture.
@@ -63,6 +62,13 @@ The system processes broad informational queries into constrained, scannable sum
 ![Summarization Example](3%20-%20Information%20request.jpg)
 *Fig: Fact-based summarization of historical data.*
 
+### 🇳🇵 Translation & Linguistic Analysis
+The bot can translate and break down sentences between Nepali and English. It attempts to explain grammatical components like verbs and conjunctions to provide better context for code-switching.
+
+![Translation Breakdown Example](5%20-%20translation.jpg)
+*Fig: Etymological breakdown of a Nepali sentence.*
+
+**Linguistic Note:** This feature is highly dependent on the cloud model (Gemini). When the system falls back to **LLaMA 3**, translation results are often "not so great," failing to capture the nuance of Nepali grammar or cultural context.
 ---
 
 ## Operational Challenges: The "BBC Leak"
