@@ -35,6 +35,13 @@ To ensure 100% operational uptime, the bot utilizes a "Cloud-First, Local-Second
 
 If the system detects an API quota limit (HTTP 429) or connection failure, it automatically reroutes the prompt to the local hardware.
 
+### 📂 Comparative Builds
+For transparency, both the legacy and current builds are available in this repository:
+* **`bot_old.py`**: The initial experimental build generated primarily via **ChatGPT**.
+* **`bot.py`**: The current stable build refactored with **Gemini Pro**, featuring the hybrid architecture and regional sentry logic.
+
+Comparing the two files highlights the iterative jump from basic translation logic to a more complex, multi-tool assistant.
+
 ---
 
 ## Core Feature Breakdown
