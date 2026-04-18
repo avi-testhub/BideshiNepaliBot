@@ -102,3 +102,4 @@ A persistent technical hurdle identified during the auditing phase is **strict r
 1. Define `DISCORD_TOKEN` and `GEMINI_API_KEY` in `.env`.
 2. Install dependencies: `pip install discord.py google-genai requests yfinance feedparser python-dotenv`.
 3. Ensure Ollama is running LLaMA 3 for local fallback support.
+
