@@ -4,6 +4,21 @@ This repository documents the development of a Discord bot designed for both spe
 
 In Nepalese, "Bideshi" means "Foreign." The term BideshiNepali refers to the global Nepalese diaspora, those living and working outside of Nepal. The bot is named to reflect this identity: a technical tool for navigating international life (markets, geography, news) while staying connected to Nepalese roots.
 
+## Table of Contents
+* [Developer Profile & Methodology](#developer-profile--methodology)
+* [Prompting & Iteration Metrics](#️-prompting--iteration-metrics)
+* [Technical Architecture: Hybrid AI Orchestration](#technical-architecture-hybrid-ai-orchestration)
+    * [Comparative Builds](#-comparative-builds)
+* [Core Feature Breakdown](#core-feature-breakdown)
+    * [Geographical Resolution & OSM Integration](#-geographical-resolution--osm-integration)
+    * [Financial Market Auditing](#-financial-market-auditing)
+    * [Automated Briefing](#-automated-briefing)
+    * [Translation & Linguistic Analysis](#translation--linguistic-analysis)
+* [Operational Challenges: The "BBC Leak"](#operational-challenges-the-bbc-leak)
+* [Creative & General AI Capabilities](#️-creative--general-ai-capabilities)
+* [Development Roadmap & Pipeline](#development-roadmap--pipeline)
+* [Setup](#setup)
+
 ## Developer Profile & Methodology
 **Developer:** Avi
 
