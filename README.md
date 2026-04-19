@@ -16,6 +16,7 @@ In Nepalese, "Bideshi" means "Foreign." The term BideshiNepali refers to the glo
     * [Translation & Linguistic Analysis](#translation--linguistic-analysis)
 * [Operational Challenges: The "BBC Leak"](#operational-challenges-the-bbc-leak)
 * [Creative & General AI Capabilities](#️-creative--general-ai-capabilities)
+* [Technical Challenges & Lessons Learned] (#-technical-challenges--lessons-learned)
 * [Development Roadmap & Pipeline](#development-roadmap--pipeline)
 * [Setup](#setup)
 
