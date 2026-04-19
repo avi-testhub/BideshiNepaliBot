@@ -16,7 +16,7 @@ In Nepalese, "Bideshi" means "Foreign." The term BideshiNepali refers to the glo
     * [Translation & Linguistic Analysis](#translation--linguistic-analysis)
 * [Operational Challenges: The "BBC Leak"](#operational-challenges-the-bbc-leak)
 * [Creative & General AI Capabilities](#️-creative--general-ai-capabilities)
-* [Technical Challenges & Lessons Learned](#technical-challenges--lessons-learned)
+* [Technical Challenges & Lessons Learned](#challenges)
 * [Development Roadmap & Pipeline](#development-roadmap--pipeline)
 * [Setup](#setup)
 
@@ -125,6 +125,7 @@ Beyond specialized operations, the bot functions as a full-featured creative ass
 - **Creative Writing:** Generating lyrics, short stories, jokes and poems.
 - **Summarization:** Condensing chat history into bullet points. (Legacy feature removed for refactoring due to memory bugs).
 
+<div id="challenges"></div>
 ## ⚠️ Technical Challenges & Lessons Learned
 
 - **Asyncio Bottleneck:** Resolved system "freezes" by refactoring to aiohttp. This moved the bot from a blocking script to a responsive asynchronous system.
