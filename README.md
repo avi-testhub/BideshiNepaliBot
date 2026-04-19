@@ -126,6 +126,7 @@ Beyond specialized operations, the bot functions as a full-featured creative ass
 - **Summarization:** Condensing chat history into bullet points. (Legacy feature removed for refactoring due to memory bugs).
 
 <div id="challenges"></div>
+
 ## ⚠️ Technical Challenges & Lessons Learned
 
 - **Asyncio Bottleneck:** Resolved system "freezes" by refactoring to aiohttp. This moved the bot from a blocking script to a responsive asynchronous system.
