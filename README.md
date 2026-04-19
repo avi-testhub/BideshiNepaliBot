@@ -93,7 +93,7 @@ The system processes broad informational queries into constrained, scannable sum
 *Fig: Fact-based summarization of historical data.*
 
 ### Translation & Linguistic Analysis
-The bot can translate sentences from various languages into English. It attempts to explain grammatical components like verbs and conjunctions to provide better context for code-switching.
+The bot can translate sentences from various languages into English. It attempts to explain grammatical components like verbs and conjunctions to provide better context.
 
 ![Translation Breakdown Example](./Images/5%20-%20translation.jpg)
 *Fig: Etymological breakdown of a Nepali sentence.*
@@ -123,6 +123,15 @@ Beyond specialized operations, the bot functions as a full-featured creative ass
 - **Conversational Logic:** Capable of holding long-form, context-aware discussions.
 - **Creative Writing:** Generating lyrics, short stories, jokes and poems.
 - **Summarization:** Condensing chat history into bullet points. (Legacy feature removed for refactoring due to memory bugs).
+
+## ⚠️ Technical Challenges & Lessons Learned
+
+- **Asyncio Bottleneck:** Resolved system "freezes" by refactoring to aiohttp. This moved the bot from a blocking script to a responsive asynchronous system.
+- **Linguistic Leakage:** Removed bilingual support after older models frequently defaulted to Hindi instead of Nepalese, leading to inaccurate code-switching.
+- **Model Disparity:** Scrapped the "Nepali Peer" persona because the local LLaMA 3 fallback could not replicate the cultural nuance of Gemini, causing jarring tonal shifts.
+- **Graceful Degradation:** Pivoted to a "Utility First" strategy—stripping creative/bilingual features to prioritize operational stability and data integrity.
+- **Memory Fragmentation:** Identified that passing chat history between cloud and local engines causes logic crashes; currently refactoring to a model-agnostic SQLite3 database for persistent memory.
+
 ---
 
 ## Development Roadmap & Pipeline
