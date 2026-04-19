@@ -137,7 +137,8 @@ Beyond specialized operations, the bot functions as a full-featured creative ass
 * **Full Cloud Integration:** Transitioning the bot host and fallback model (LLaMA 3) from local hardware to a 24/7 cloud environment (VPS/Serverless) for full autonomy.
 
 ## Setup
-1. Define `DISCORD_TOKEN` and `GEMINI_API_KEY` in `.env`.
+1. Clone the repository to your local machine.
+2. Create a .env file in the root directory and define your credentials:
 ```
 DISCORD_TOKEN=your_discord_bot_token_here
 GEMINI_API_KEY=your_google_gemini_api_key_here
