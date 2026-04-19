@@ -1,4 +1,4 @@
-# BideshiNepaliBot: Cloud-Local Hybrid AI
+# BideshiNepaliBot: Hybrid Cloud-Local Intelligence for Discord
 
 This repository documents the development of a Discord bot designed for both specialized operational tasks like market auditing and geographical resolution and standard general-purpose chatting. 
 
