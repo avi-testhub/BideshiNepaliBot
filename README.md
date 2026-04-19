@@ -159,5 +159,6 @@ GEMINI_API_KEY=your_google_gemini_api_key_here
    * **Discord Token:** Follow [this guide](https://github.com/reactiflux/discord-irc/wiki/creating-a-discord-bot-&-getting-a-token) to create a New Application and retrieve your unique bot token.
    * **Gemini API Key:** Generate a free API key via [Google AI Studio](https://aistudio.google.com/).
 3. Install dependencies: `pip install discord.py google-genai requests yfinance feedparser python-dotenv`.
-4. Ensure Ollama is running LLaMA 3 for local fallback support.
+4. Ensure Ollama is installed and running LLaMA 3 for local fallback support.
+
 
