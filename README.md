@@ -98,7 +98,7 @@ The bot can translate sentences from various languages into English. It attempts
 ![Translation Breakdown Example](./Images/5%20-%20translation.jpg)
 *Fig: Etymological breakdown of a Nepali sentence.*
 
-_Note: This feature is highly dependent on the cloud model (Gemini). When the system falls back to **LLaMA 3**, translation results are often "not so great", failing to capture the nuances of grammar or cultural context._
+_Note: This feature is highly dependent on the cloud model (Gemini). When the system falls back to **LLaMA 3**, translation results are often inaccurate, failing to capture the nuances of grammar or cultural context._
 
 ---
 
