@@ -156,6 +156,8 @@ Beyond specialized operations, the bot functions as a full-featured creative ass
 DISCORD_TOKEN=your_discord_bot_token_here
 GEMINI_API_KEY=your_google_gemini_api_key_here
 ```
+   * Discord Token: Follow this guide to create an application and retrieve your bot token.
+   * Gemini API Key: Generate a key via Google AI Studio.
 3. Install dependencies: `pip install discord.py google-genai requests yfinance feedparser python-dotenv`.
 4. Ensure Ollama is running LLaMA 3 for local fallback support.
 
