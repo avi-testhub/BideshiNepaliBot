@@ -133,8 +133,8 @@ Beyond specialized operations, the bot functions as a full-featured creative ass
 - **Linguistic Leakage:** Removed bilingual support after older models frequently defaulted to Hindi instead of Nepalese, leading to inaccurate code-switching.
 - **Model Disparity:** Scrapped the "Nepali Peer" persona because the local LLaMA 3 fallback could not replicate the cultural nuance of Gemini, causing jarring tonal shifts.
 - **Graceful Degradation:** Pivoted to a "Utility First" strategy, stripping creative/bilingual features to prioritize operational stability and data integrity.
-- **Memory Fragmentation:** Identified that passing chat history between cloud and local engines causes logic crashes; currently refactoring to a model-agnostic SQLite3 database for persistent memory.
-
+- **Memory Fragmentation:** Identified that passing chat history between cloud and local engines causes logic crashes.
+  
 ---
 
 ## Development Roadmap & Pipeline
