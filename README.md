@@ -22,7 +22,7 @@ In Nepalese, "Bideshi" means "Foreign." The term BideshiNepali refers to the glo
 ## Developer Profile & Methodology
 **Developer:** Avi
 
-**Methodology:** This project was built with a very limited foundational background in Python, which proved insufficient for complex architecture. Consequently, the development process relied almost entirely on **"vibe coding"** - an iterative, prompt-heavy approach to building software through high-level intent rather than manual syntax writing.
+**Methodology:** This project was built with a very limited foundational background in Python, which proved insufficient for complex architecture. Consequently, the development process relied almost on a **Prompt-Driven Development (PDD)** approach, often referred to as **"vibe coding"** - an iterative, prompt-heavy approach to building software through high-level intent rather than manual syntax writing.
 * **Phase 1:** Initial logic and structure were drafted using the paid version of **ChatGPT**.
 * **Phase 2:** The project transitioned to **Gemini Pro** for more complex refactoring and the implementation of the hybrid architecture.
 * **Process:** The development involved extensive trial and error. Systems were "audited" through continuous manual interaction to identify edge cases and logic failures.
@@ -36,7 +36,7 @@ In Nepalese, "Bideshi" means "Foreign." The term BideshiNepali refers to the glo
 
 ## 🛠️ Prompting & Iteration Metrics
 
-Because the development followed a **"Vibe Coding"** methodology, the project represents approximately **70–90 high-level prompts** across both ChatGPT and Gemini Pro.
+Because the development followed a **Prompt-Driven Development (PDD)** methodology, the project represents approximately **80-100 high-level prompts** across both ChatGPT and Gemini Pro.
 
 ### Process Breakdown:
 **Total Estimated Prompts: ~100**
